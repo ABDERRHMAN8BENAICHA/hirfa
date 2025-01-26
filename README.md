@@ -29,7 +29,7 @@ Hirfa is an Android app designed to empower craftsmen (electricians, carpenters,
 ### Steps
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/drLacheheb/Sougna.git
+   git clone https://github.com/ABDERRHMAN8BENAICHA/hirfa.git
    ```
 2. **Open in Android Studio**
     - Select "Open an Existing Project"
