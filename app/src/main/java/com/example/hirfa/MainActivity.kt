@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
             HirfaTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "BenAicha",
+                        name = "AHMED YACINE ",
                         modifier = Modifier.padding(innerPadding)
                     )
                     //FirstUI(modifier = Modifier.padding(innerPadding))
