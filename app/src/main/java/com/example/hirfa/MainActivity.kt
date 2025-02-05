@@ -102,7 +102,7 @@ fun FirstUI(modifier: Modifier = Modifier) {
 
                     allItems.filter { it.contains(searchQuery, ignoreCase = true) }
                 }
-            /* TODO 5: Implement search functionality */ }
+            textValue="" /* TODO 5: Implement search functionality */ }
         )
 
         // TODO 6: Display list of items using CardsList composable
