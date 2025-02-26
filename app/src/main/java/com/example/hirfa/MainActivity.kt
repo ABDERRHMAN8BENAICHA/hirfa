@@ -213,7 +213,6 @@ fun CardsList( onClear: (String) -> Unit ,
                         }
 
                     }
-
                 }
             }else{
                 Box {
