@@ -15,7 +15,7 @@ val MidnightOil = Color(0xFF0D47A1)        // Dark tertiary - Deep navy
 
 // Neutral Colors
 val Parchment = Color(0xFFF5F5F5)          // Light background
-val Graphite = Color(0xFF212121)           // Primary text color
+val Graphite = Color(0xFFFCF2F2)           // Primary text color
 val SteelGray = Color(0xFF757575)          // Secondary text/icons
 
 // Accent Colors
