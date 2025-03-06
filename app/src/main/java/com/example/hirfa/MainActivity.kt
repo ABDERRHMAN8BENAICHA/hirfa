@@ -40,9 +40,9 @@ import com.example.hirfa.viewmodel.CraftsmanViewModel
 class MainActivity : ComponentActivity() {
 
     data class BottomNavBarItems(
-            val title: String,
-            val selectedIcon : ImageVector,
-            val unselectedIcon : ImageVector,
+        val title: String,
+        val selectedIcon : ImageVector,
+        val unselectedIcon : ImageVector,
     )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +55,7 @@ class MainActivity : ComponentActivity() {
                         selectedIcon = Icons.Filled.Home,
                         unselectedIcon = Icons.Outlined.Home,
 
-                    ),
+                        ),
                     BottomNavBarItems(
                         title = "Map",
                         selectedIcon = Icons.Filled.LocationOn,
@@ -73,32 +73,32 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize(),
                     bottomBar = {
                         NavigationBar {
-                           navbar_items.forEachIndexed { index, item ->
+                            navbar_items.forEachIndexed { index, item ->
 
-                               NavigationBarItem(
+                                NavigationBarItem(
 
-                                   selected = itemindex == index,
-                                   onClick = {itemindex = index
-                                             //navControler.navigate(item.title)
-                                             },
-                                   label = { Text(item.title) },
-                                   alwaysShowLabel = false,
-                                   icon = {
-                                      BadgedBox(
-                                          badge = {  }
-                                      ) {
-                                          Icon(
-                                              imageVector = if (itemindex == index) item.selectedIcon else item.unselectedIcon,
-                                              contentDescription = item.title
+                                    selected = itemindex == index,
+                                    onClick = {itemindex = index
+                                        //navControler.navigate(item.title)
+                                    },
+                                    label = { Text(item.title) },
+                                    alwaysShowLabel = false,
+                                    icon = {
+                                        BadgedBox(
+                                            badge = {  }
+                                        ) {
+                                            Icon(
+                                                imageVector = if (itemindex == index) item.selectedIcon else item.unselectedIcon,
+                                                contentDescription = item.title
 
-                                          )
-                                      }
+                                            )
+                                        }
 
 
-                                   }
+                                    }
 
-                               )
-                           }
+                                )
+                            }
                         }
                     }
                 ) { innerPadding ->
@@ -115,4 +115,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
