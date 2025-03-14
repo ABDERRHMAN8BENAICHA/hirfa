@@ -4,8 +4,8 @@ import androidx.compose.ui.graphics.Color
 
 
 // Light Theme Colors
-val CraftersGold = Color(0xFFFFC107)       // Primary - Vibrant yellow
-val AmberAccent = Color(0xFFFFA000)        // Secondary - Deep orange-yellow
+val CraftersGold = Color(0xFFFDFDFD)       // Primary - Vibrant yellow
+val AmberAccent = Color(0xFFEFEFEF)        // Secondary - Deep orange-yellow
 val ToolboxNavy = Color(0xFF1976D2)        // Tertiary - Contrasting navy blue
 
 // Dark Theme Colors
