@@ -3,44 +3,35 @@ package com.example.hirfa
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.hirfa.ui.theme.HirfaTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.ui.graphics.Color
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             HirfaTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "BenAicha",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                    //FirstUI(modifier = Modifier.padding(innerPadding))
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    FirstUI()
                 }
             }
         }
@@ -48,95 +39,232 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun FirstUI() {
+    // Part 1: State Management - Create state variables
+    var textValue by remember { mutableStateOf("") }
+    val allItems = remember { mutableStateListOf<String>() }
+    var searchQuery by remember { mutableStateOf("") }
+    var showError by remember { mutableStateOf(false) }
+    var isSearchMode by remember { mutableStateOf(false) }
 
-/**
- * Main composable function for the UI layout
- * @param modifier Modifier for layout adjustments
- */
-@Composable
-fun FirstUI(modifier: Modifier = Modifier) {
-    // TODO 1: Create state variables for text input and items list
+    val displayedItems = if (searchQuery.isEmpty()) {
+        allItems
+    } else {
+        allItems.filter { it.contains(searchQuery, ignoreCase = true) }
+    }
 
     Column(
-        modifier = modifier
-            .padding(25.dp)
+        modifier = Modifier
             .fillMaxSize()
+            .padding(16.dp)
     ) {
-        SearchInputBar(
-            textValue = "", // TODO 2: Connect to state
-            onTextValueChange = { /* TODO 3: Update text state */ },
-            onAddItem = { /* TODO 4: Add item to list */ },
-            onSearch = { /* TODO 5: Implement search functionality */ }
+        Text(
+            text = "Hirfa App",
+            style = MaterialTheme.typography.headlineMedium,
+            modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        // TODO 6: Display list of items using CardsList composable
-        CardsList(emptyList())
+        SearchInputBar(
+            textValue = textValue,
+            onTextChanged = {
+                textValue = it
+                if (isSearchMode) {
+                    searchQuery = it
+                }
+                // Hide error when typing
+                if (it.isNotBlank()) {
+                    showError = false
+                }
+            },
+            onAddClicked = {
+                if (textValue.isBlank()) {
+                    showError = true
+                } else {
+                    allItems.add(textValue)
+                    textValue = ""
+                    showError = false
+                    // Reset search when adding new item
+                    if (isSearchMode) {
+                        searchQuery = ""
+                        isSearchMode = false
+                    }
+                }
+            },
+            onSearchClicked = {
+                searchQuery = textValue
+                isSearchMode = true
+            }
+        )
+
+        if (showError) {
+            Text(
+                text = "Cannot add empty item",
+                color = Color.Red,
+                modifier = Modifier.padding(top = 4.dp)
+            )
+        }
+
+        if (isSearchMode && searchQuery.isNotEmpty()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Searching for: \"$searchQuery\"",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+
+                TextButton(onClick = {
+                    searchQuery = ""
+                    isSearchMode = false
+                    textValue = ""
+                }) {
+                    Text("Clear")
+                }
+            }
+        }
+
+        if (isSearchMode && displayedItems.isEmpty() && searchQuery.isNotEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 32.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "No items found for \"$searchQuery\"",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+        }
+
+        CardsList(
+            items = displayedItems,
+            onDeleteItem = { item ->
+                allItems.remove(item)
+            }
+        )
     }
 }
 
-/**
- * Composable for search and input controls
- * @param textValue Current value of the input field
- * @param onTextValueChange Callback for text changes
- * @param onAddItem Callback for adding new items
- * @param onSearch Callback for performing search
- */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchInputBar(
     textValue: String,
-    onTextValueChange: (String) -> Unit,
-    onAddItem: (String) -> Unit,
-    onSearch: (String) -> Unit
+    onTextChanged: (String) -> Unit,
+    onAddClicked: () -> Unit,
+    onSearchClicked: () -> Unit
 ) {
-    Column {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         TextField(
             value = textValue,
-            onValueChange = onTextValueChange,
-            modifier = Modifier.fillMaxWidth(),
-            placeholder = { Text("Enter text...") }
+            onValueChange = onTextChanged,
+            modifier = Modifier.weight(1f),
+            placeholder = { Text("Add or search items...") },
+            singleLine = true,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant
+            )
         )
 
-        Row(
+        IconButton(
+            onClick = onAddClicked,
+            modifier = Modifier.padding(start = 8.dp)
+        ) {
+            Icon(
+                Icons.Default.Add,
+                contentDescription = "Add",
+                tint = MaterialTheme.colorScheme.primary
+            )
+        }
+
+        IconButton(
+            onClick = onSearchClicked,
+            modifier = Modifier.padding(start = 4.dp)
+        ) {
+            Icon(
+                Icons.Default.Search,
+                contentDescription = "Search",
+                tint = MaterialTheme.colorScheme.secondary
+            )
+        }
+    }
+}
+
+@Composable
+fun CardsList(
+    items: List<String>,
+    onDeleteItem: (String) -> Unit
+) {
+    if (items.isEmpty()) {
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+                .padding(top = 32.dp),
+            contentAlignment = Alignment.Center
         ) {
-            Button(onClick = { /* TODO 7: Handle add button click */ }) {
-                Text("Add")
-            }
+            Text(
+                text = "Your list is empty. Add some items!",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    } else {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(items) { item ->
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    )
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = item,
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier.weight(1f),
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis
+                        )
 
-            Button(onClick = { /* TODO 8: Handle search button click */ }) {
-                Text("Search")
+                        IconButton(onClick = { onDeleteItem(item) }) {
+                            Icon(
+                                Icons.Default.Delete,
+                                contentDescription = "Delete",
+                                tint = MaterialTheme.colorScheme.error
+                            )
+                        }
+                    }
+                }
             }
         }
     }
 }
 
-/**
- * Composable for displaying a list of items in cards
- * @param displayedItems List of items to display
- */
+@Preview(showBackground = true)
 @Composable
-fun CardsList(displayedItems: List<String>) {
-    // TODO 9: Implement LazyColumn to display items
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        // TODO 10: Create cards for each item in the list
-        items(displayedItems) { item ->
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-            ) {
-                Text(text = "Sample Item", modifier = Modifier.padding(16.dp))
-            }
-        }
+fun DefaultPreview() {
+    HirfaTheme {
+        FirstUI()
     }
 }
