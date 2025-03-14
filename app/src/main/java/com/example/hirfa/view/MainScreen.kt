@@ -97,7 +97,6 @@ fun MainScreen(
         //Display toolbar
         Spacer(modifier = Modifier.width(40.dp))
         Toolbar()
-        Spacer(modifier = Modifier.height(0.dp))
         // Display search view
         SearchView()
         Spacer(modifier = Modifier.height(15.dp))
@@ -105,10 +104,8 @@ fun MainScreen(
         ServiceText()
         CategoryList(categories = categoryState.categories)
 
-        Spacer(modifier = Modifier.height(5.dp))
         //Slider Images
         SliderImages()
-        Spacer(modifier = Modifier.height(5.dp))
         // Display craftsmen
         CarftsmenText()
        // Text("Craftsmen", style = MaterialTheme.typography.headlineMedium)
@@ -122,7 +119,6 @@ fun MainScreen(
 
 @Composable
 fun CategoryList(categories: List<Category>) {
-Spacer(modifier = Modifier.size(0.dp))
 
     LazyRow {
 
@@ -189,7 +185,6 @@ Row (verticalAlignment = Alignment.CenterVertically){
 fun CarftsmenText(modifier: Modifier = Modifier){
     Row (verticalAlignment = Alignment.CenterVertically){
 
-        Text("Employees",
             modifier = Modifier.padding(start = 10.dp),
             style = MaterialTheme.typography.titleMedium,
             fontSize = 20.sp)
@@ -210,24 +205,13 @@ fun CarftsmenText(modifier: Modifier = Modifier){
 }
 @Composable
 fun CraftsmanList(craftsmen: List<Craftsman>) {
-    LazyColumn {
         items(craftsmen) { craftsman ->
-            Spacer(modifier = Modifier.width(2.dp))
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
-                Column(modifier = Modifier.padding(10.dp)) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.Top
-                    ) {
-                        // Image column with rating
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
                             AsyncImage(
                                 model = craftsman.profilePicture,
                                 contentDescription = null,
@@ -236,11 +220,6 @@ fun CraftsmanList(craftsmen: List<Craftsman>) {
                                     .clip(MaterialTheme.shapes.medium),
                                 contentScale = ContentScale.Crop
                             )
-                            Spacer(modifier = Modifier.height(4.dp))
-                            // Star and rating
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
                                 Image(
                                     painter = painterResource(id = R.drawable.star),
                                     contentDescription = null,
@@ -249,27 +228,11 @@ fun CraftsmanList(craftsmen: List<Craftsman>) {
                                 Spacer(modifier = Modifier.width(4.dp))
                                 Text("${craftsman.rating}", style = MaterialTheme.typography.bodySmall)
                             }
-                        }
 
-                        Spacer(modifier = Modifier.width(16.dp))
 
-                        // Craftsman details
-                        Column(
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(craftsman.name, style = MaterialTheme.typography.titleMedium)
-                            Text(craftsman.description, style = MaterialTheme.typography.bodyMedium)
-                            Text("Category: ${craftsman.category}", style = MaterialTheme.typography.bodySmall)
-
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.End
-                            ) {
                                 Image(
                                     painter = painterResource(id = R.drawable.play),
                                     contentDescription = null,
-                                    modifier = Modifier
-                                        .size(16.dp)
                                         .clickable { true }
                                 )
                             }
@@ -325,8 +288,6 @@ fun Toolbar(modifier: Modifier = Modifier){
             }
 
         }
-        Spacer(modifier = Modifier.height(0.dp))
-        Text("َAli Atoussi",
             modifier = Modifier.padding(start = 10.dp),
             style = MaterialTheme.typography.titleMedium,
             fontSize = 23.sp)
@@ -344,7 +305,6 @@ OutlinedTextField(
     onValueChange = {n -> text =n},
     modifier = Modifier.fillMaxWidth(),
     singleLine = true,
-    label = { Text("search ") },
     trailingIcon ={ Icon(imageVector = Icons.Filled.Search,
         contentDescription = "search",
 
