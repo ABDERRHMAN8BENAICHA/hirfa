@@ -111,7 +111,7 @@ fun MainScreen(
         Spacer(modifier = Modifier.height(10.dp))
         // Display craftsmen
         CarftsmenText()
-       // Text("Craftsmen", style = MaterialTheme.typography.headlineMedium)
+        // Text("Craftsmen", style = MaterialTheme.typography.headlineMedium)
         when {
             craftsmanState.isLoading -> CircularProgressIndicator()
             craftsmanState.error != null -> Text("Error: ${craftsmanState.error}")
@@ -122,68 +122,78 @@ fun MainScreen(
 
 @Composable
 fun CategoryList(categories: List<Category>) {
-Spacer(modifier = Modifier.size(10.dp))
+    var selectedCategory by remember { mutableStateOf<Category?>(null) }
+
+    Spacer(modifier = Modifier.size(10.dp))
 
     LazyRow {
-
         items(categories) { category ->
-             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                 Card(
-                     shape = RoundedCornerShape(110.dp),
-                     modifier = Modifier
-                         .width(80.dp)
-                         .height(85.dp)
-                         .padding(vertical = 4.dp),
-                     elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-                 ) {
-                     Column (modifier = Modifier
-                         .padding(16.dp)
-                         .fillParentMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                         verticalArrangement = Arrangement.Center
-                         ) {
-                         Image(
-                             painter = painterResource(id = category.icon),
-                             contentDescription = null,
-                             modifier = Modifier.size(54.dp).clip(shape = RoundedCornerShape(5.dp)),
-                             contentScale = ContentScale.Crop
+            val isSelected = selectedCategory == category
 
-                         )
-                         //Spacer(modifier = Modifier.width(8.dp))
-                     }
-                 }
-                 Column() {
-                     Text(category.name, style = MaterialTheme.typography.titleMedium)
-                     // Text(category.description, style = MaterialTheme.typography.bodyMedium)
-                 }
-             }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Card(
+                    shape = RoundedCornerShape(16.dp),
+                    modifier = Modifier
+                        .width(90.dp)
+                        .height(90.dp)
+                        .padding(4.dp)
+                        .clickable {
+                            selectedCategory = category
+                        },
+                    colors = CardDefaults.cardColors(
+                        containerColor = if (isSelected) Color.Gray else Color.White
+                    ),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(10.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Image(
+                            painter = painterResource(id = category.icon),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(54.dp)
+                                .clip(RoundedCornerShape(10.dp)),
+                            contentScale = ContentScale.Crop
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(category.name, style = MaterialTheme.typography.titleMedium)
+            }
             Spacer(modifier = Modifier.width(15.dp))
         }
     }
 }
+
 //@Preview
 @Composable
 fun ServiceText(modifier: Modifier = Modifier){
-Row (verticalAlignment = Alignment.CenterVertically){
+    Row (verticalAlignment = Alignment.CenterVertically){
 
-    Text("Service",
-        modifier = Modifier.padding(start = 10.dp),
-        style = MaterialTheme.typography.titleMedium,
-        fontSize = 20.sp)
+        Text("Service",
+            modifier = Modifier.padding(start = 10.dp),
+            style = MaterialTheme.typography.titleMedium,
+            fontSize = 20.sp)
 
-    Spacer(modifier = Modifier.width(5.dp))
+        Spacer(modifier = Modifier.width(5.dp))
 
-    IconButton(modifier = Modifier.size(25.dp)
-        .clickable { true }
-        .clip(CircleShape),
-        onClick = {null}
-    ) {
-        Image(painter = painterResource(R.drawable.forward),
-            contentDescription = null)
+        IconButton(modifier = Modifier.size(25.dp)
+            .clickable { true }
+            .clip(CircleShape),
+            onClick = {null}
+        ) {
+            Image(painter = painterResource(R.drawable.forward),
+                contentDescription = null)
+        }
+
+
     }
-
-
-}
 }
 @Preview
 @Composable
@@ -211,7 +221,7 @@ fun CarftsmenText(modifier: Modifier = Modifier){
 }
 @Composable
 fun CraftsmanList(craftsmen: List<Craftsman>) {
-    LazyRow {
+    LazyColumn {
         items(craftsmen) { craftsman ->
             Spacer(modifier = Modifier.width(10.dp))
             Card(
@@ -235,16 +245,16 @@ fun CraftsmanList(craftsmen: List<Craftsman>) {
                         Text(craftsman.description, style = MaterialTheme.typography.bodyMedium)
                         Text("Category: ${craftsman.category}", style = MaterialTheme.typography.bodySmall)
                         Row (modifier = Modifier.fillParentMaxWidth(),
-                           horizontalArrangement = Arrangement.SpaceBetween){
-                         Row {
-                             Image(
-                                 painter = painterResource(id = R.drawable.star),
-                                 contentDescription = null,
-                                 modifier = Modifier.size(16.dp)
-                             )
-                             Spacer(modifier = Modifier.width(4.dp))
-                             Text("${craftsman.rating}", style = MaterialTheme.typography.bodySmall)
-                         }
+                            horizontalArrangement = Arrangement.SpaceBetween){
+                            Row {
+                                Image(
+                                    painter = painterResource(id = R.drawable.star),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text("${craftsman.rating}", style = MaterialTheme.typography.bodySmall)
+                            }
 
 
                             Column {
@@ -252,7 +262,7 @@ fun CraftsmanList(craftsmen: List<Craftsman>) {
                                     painter = painterResource(id = R.drawable.play),
                                     contentDescription = null,
                                     modifier = Modifier.size(16.dp)
-                                        .clickable { true }
+                                        .clickable {true }
                                 )
                             }
                         }
@@ -322,26 +332,26 @@ fun Toolbar(modifier: Modifier = Modifier){
 @Composable
 fun SearchView(modifier: Modifier = Modifier){
     var text by remember { mutableStateOf("") }
-OutlinedTextField(
-     value = text,
-    onValueChange = {n -> text =n},
-    modifier = Modifier.fillMaxWidth(),
-    singleLine = true,
-    label = { Text("search hirfa") },
-    trailingIcon ={ Icon(imageVector = Icons.Filled.Search,
-        contentDescription = "search",
+    OutlinedTextField(
+        value = text,
+        onValueChange = {n -> text =n},
+        modifier = Modifier.fillMaxWidth(),
+        singleLine = true,
+        label = { Text("search hirfa") },
+        trailingIcon ={ Icon(imageVector = Icons.Filled.Search,
+            contentDescription = "search",
 
             )},
 
-    leadingIcon = {Icon(imageVector = Icons.Filled.Menu,
-        contentDescription = "manu",
-        modifier = Modifier.clickable { true }
-    )},
-    shape = RoundedCornerShape(25.dp),
-    colors = TextFieldDefaults.colors(focusedIndicatorColor = Color.Gray,
-        focusedLabelColor = Color.Gray,
-        cursorColor = Color.Black)
-        )
+        leadingIcon = {Icon(imageVector = Icons.Filled.Menu,
+            contentDescription = "manu",
+            modifier = Modifier.clickable { true }
+        )},
+        shape = RoundedCornerShape(25.dp),
+        colors = TextFieldDefaults.colors(focusedIndicatorColor = Color.Gray,
+            focusedLabelColor = Color.Gray,
+            cursorColor = Color.Black)
+    )
 
 }
 
@@ -357,74 +367,74 @@ fun categoriesPreview() {
 
 @Composable
 fun SliderImages(modifier: Modifier=Modifier){
-   Column(modifier = Modifier.fillMaxWidth().wrapContentHeight()){
-       Row (modifier=Modifier.fillMaxWidth() ,
-           verticalAlignment = Alignment.CenterVertically){
-           Text("Services Gallery",
-               modifier = Modifier.padding(start = 10.dp),
-               style = MaterialTheme.typography.titleMedium,
-               fontSize = 20.sp)
+    Column(modifier = Modifier.fillMaxWidth().wrapContentHeight()){
+        Row (modifier=Modifier.fillMaxWidth() ,
+            verticalAlignment = Alignment.CenterVertically){
+            Text("Services Gallery",
+                modifier = Modifier.padding(start = 10.dp),
+                style = MaterialTheme.typography.titleMedium,
+                fontSize = 20.sp)
 
-              Spacer(modifier = Modifier.width(5.dp))
+            Spacer(modifier = Modifier.width(5.dp))
 
-           IconButton(modifier = Modifier.size(25.dp)
-               .clickable { true }
-               .clip(CircleShape),
-               onClick = {null}
-                ) {
-               Image(painter = painterResource(R.drawable.forward),
-                   contentDescription = null)
-           }
-       }
+            IconButton(modifier = Modifier.size(25.dp)
+                .clickable { true }
+                .clip(CircleShape),
+                onClick = {null}
+            ) {
+                Image(painter = painterResource(R.drawable.forward),
+                    contentDescription = null)
+            }
+        }
         Spacer(modifier = Modifier.height(10.dp))
-       LazyRow(modifier = Modifier.fillMaxWidth()
-           .height(150.dp)
-           .padding(2.dp)) {
+        LazyRow(modifier = Modifier.fillMaxWidth()
+            .height(150.dp)
+            .padding(2.dp)) {
 
-           item() {
-               Spacer(modifier= Modifier.width(10.dp))
-               Card(elevation = CardDefaults.cardElevation(4.dp)
-               ) {
-                   Image(modifier = Modifier.width(250.dp)
-                       .height(150.dp),
-                       painter = painterResource(R.drawable.woodworking),
-                       contentDescription = null,
-                       contentScale = ContentScale.Crop,
-                       )
-                   Spacer(Modifier.width(12.dp))
-               }
-           }
+            item() {
+                Spacer(modifier= Modifier.width(10.dp))
+                Card(elevation = CardDefaults.cardElevation(4.dp)
+                ) {
+                    Image(modifier = Modifier.width(250.dp)
+                        .height(150.dp),
+                        painter = painterResource(R.drawable.woodworking),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                    )
+                    Spacer(Modifier.width(12.dp))
+                }
+            }
 
-           item() {
-               Spacer(modifier= Modifier.width(10.dp))
-               Card(elevation = CardDefaults.cardElevation(4.dp)
-               ) {
-                   Image(modifier = Modifier.width(250.dp)
-                       .height(150.dp),
-                       painter = painterResource(R.drawable.electrical_person),
-                       contentDescription = null,
-                       contentScale = ContentScale.Crop,
-                   )
-                   Spacer(Modifier.width(12.dp))
-               }
-           }
+            item() {
+                Spacer(modifier= Modifier.width(10.dp))
+                Card(elevation = CardDefaults.cardElevation(4.dp)
+                ) {
+                    Image(modifier = Modifier.width(250.dp)
+                        .height(150.dp),
+                        painter = painterResource(R.drawable.electrical_person),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                    )
+                    Spacer(Modifier.width(12.dp))
+                }
+            }
 
-           item() {
-               Spacer(modifier= Modifier.width(10.dp))
-               Card(elevation = CardDefaults.cardElevation(4.dp)
-               ) {
-                   Image(modifier = Modifier.width(250.dp)
-                       .height(150.dp),
-                       painter = painterResource(R.drawable.builder_person),
-                       contentDescription = null,
-                       contentScale = ContentScale.Crop,
-                   )
-               }
-           }
+            item() {
+                Spacer(modifier= Modifier.width(10.dp))
+                Card(elevation = CardDefaults.cardElevation(4.dp)
+                ) {
+                    Image(modifier = Modifier.width(250.dp)
+                        .height(150.dp),
+                        painter = painterResource(R.drawable.builder_person),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                    )
+                }
+            }
 
-       }
+        }
 
-   }
+    }
 }
 
 @Preview
