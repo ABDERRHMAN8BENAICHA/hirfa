@@ -64,6 +64,10 @@ dependencies {
     //Navigation compose
     implementation(libs.androidx.navigation.compose)
 
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation("com.google.dagger:hilt-android:2.50") // Ensure version is latest
+    kapt("com.google.dagger:hilt-compiler:2.50")
+
 
     //firebase
 

@@ -19,18 +19,18 @@ object DomainModule {
     @Provides
     @Singleton
     fun provideGetCategoriesUseCase(categoryRepository: CategoryRepository): GetCategoriesUseCase {
-        return GetCategoriesUseCase(categoryRepository)
+        return GetCategoriesUseCase(categoryRepository) // ✅ Pass categoryRepository
     }
 
     @Provides
     @Singleton
-    fun provideGetCraftsmanUseCase(craftsmanRepository: CraftsmanRepository): GetCraftsmenUseCase{
+    fun provideGetCraftsmanUseCase(craftsmanRepository: CraftsmanRepository): GetCraftsmenUseCase {
         return GetCraftsmenUseCase(craftsmanRepository)
     }
 
     @Provides
     @Singleton
-    fun provideAddCraftsmanUseCase(craftsmanRepository: CraftsmanRepository): AddCraftsmanUseCase{
+    fun provideAddCraftsmanUseCase(craftsmanRepository: CraftsmanRepository): AddCraftsmanUseCase {
         return AddCraftsmanUseCase(craftsmanRepository)
     }
 }
