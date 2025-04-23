@@ -41,10 +41,13 @@ class CraftsmanRepositoryImpl : CraftsmanRepository{
 
     override fun getCraftsman(): Flow<List<Craftsman>> = _craftsmanFlow
 
-    override suspend fun addCraftsman(craftsman: Craftsman){
-        _craftsmen.add(craftsman)
-        _craftsmanFlow.emit(_craftsmen.toList())
+    override suspend fun addCraftsman(craftsman: Craftsman): Boolean {
+        return try {
+            _craftsmen.add(craftsman)
+            _craftsmanFlow.emit(_craftsmen.toList())
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
-
-
 }

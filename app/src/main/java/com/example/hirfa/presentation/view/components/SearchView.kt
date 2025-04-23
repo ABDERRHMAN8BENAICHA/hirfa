@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -19,32 +20,39 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
-
 @Composable
-fun SearchView(modifier: Modifier = Modifier){
+fun SearchView(modifier: Modifier = Modifier) {
     var text by remember { mutableStateOf("") }
+
     OutlinedTextField(
         value = text,
-        onValueChange = {n -> text =n},
-        modifier = Modifier.fillMaxWidth(),
+        onValueChange = { text = it },
+        modifier = modifier.fillMaxWidth(),
         singleLine = true,
-        label = { Text("search hirfa") },
-        trailingIcon ={ Icon(imageVector = Icons.Filled.Search,
-            contentDescription = "search",
-
+        label = { Text("Search Hirfa") },
+        trailingIcon = {
+            Icon(
+                imageVector = Icons.Filled.Search,
+                contentDescription = "Search",
+                tint = MaterialTheme.colorScheme.onSurface
             )
         },
-
         leadingIcon = {
-            Icon(imageVector = Icons.Filled.Menu,
-            contentDescription = "manu",
-            modifier = Modifier.clickable { true }
-        )
+            Icon(
+                imageVector = Icons.Filled.Menu,
+                contentDescription = "Menu",
+                modifier = Modifier.clickable { },
+                tint = MaterialTheme.colorScheme.onSurface
+            )
         },
         shape = RoundedCornerShape(25.dp),
-        colors = TextFieldDefaults.colors(focusedIndicatorColor = Color.Gray,
-            focusedLabelColor = Color.Gray,
-            cursorColor = Color.Black)
+        colors = TextFieldDefaults.colors(
+            focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+            unfocusedIndicatorColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+            focusedLabelColor = MaterialTheme.colorScheme.primary,
+            cursorColor = MaterialTheme.colorScheme.primary,
+            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+            focusedContainerColor = MaterialTheme.colorScheme.surface
+        )
     )
-
 }

@@ -5,7 +5,7 @@ import com.example.hirfa.data.repository.CraftsmanRepository
 import javax.inject.Inject
 
 class AddCraftsmanUseCase @Inject constructor(private val craftsmanRepository: CraftsmanRepository) {
-
-    operator suspend fun invoke(craftsman: Craftsman) = craftsmanRepository.addCraftsman(craftsman)
-
+    suspend operator fun invoke(craftsman: Craftsman): Boolean {
+        return craftsmanRepository.addCraftsman(craftsman)
+    }
 }

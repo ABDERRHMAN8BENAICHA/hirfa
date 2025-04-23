@@ -20,51 +20,62 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hirfa.R
 
-
 @Composable
-fun ServiceText(modifier: Modifier = Modifier){
-    Row (verticalAlignment = Alignment.CenterVertically){
-
-        Text("Service",
+fun ServiceText(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.clickable { onClick() }
+    ) {
+        Text(
+            text = "Service",
             modifier = Modifier.padding(start = 10.dp),
             style = MaterialTheme.typography.titleMedium,
-            fontSize = 20.sp)
+            fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.onSurface
+        )
 
         Spacer(modifier = Modifier.width(5.dp))
 
-        IconButton(modifier = Modifier.size(25.dp)
-            .clickable { true }
-            .clip(CircleShape),
-            onClick = {null}
+        IconButton(
+            modifier = Modifier
+                .size(30.dp)
+                .clip(CircleShape),
+            onClick = onClick
         ) {
-            Image(painter = painterResource(R.drawable.forward),
-                contentDescription = null)
+            Image(
+                painter = painterResource(R.drawable.forward),
+                contentDescription = "Go to Service",
+            )
         }
-
-
     }
 }
 
 @Composable
-fun CarftsmenText(modifier: Modifier = Modifier){
-    Row (verticalAlignment = Alignment.CenterVertically){
-
-        Text("Craftsmen",
+fun CraftsmenText(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.clickable { onClick() }
+    ) {
+        Text(
+            text = "Craftsmen",
             modifier = Modifier.padding(start = 10.dp),
             style = MaterialTheme.typography.titleMedium,
-            fontSize = 20.sp)
+            fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.onSurface
+        )
 
         Spacer(modifier = Modifier.width(5.dp))
 
-        IconButton(modifier = Modifier.size(25.dp)
-            .clickable { true }
-            .clip(CircleShape),
-            onClick = {null}
+        IconButton(
+            modifier = Modifier
+                .size(30.dp)
+                .clip(CircleShape),
+            onClick = onClick
         ) {
-            Image(painter = painterResource(R.drawable.forward),
-                contentDescription = null)
+            Image(
+                painter = painterResource(R.drawable.forward),
+                contentDescription = "Go to Craftsmen",
+            )
         }
-
-
     }
 }

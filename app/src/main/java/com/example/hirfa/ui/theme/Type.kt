@@ -13,7 +13,7 @@ val Typography = Typography(
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp,
-        color = Graphite // Added text color for better contrast
+//        color = Graphite // Added text color for better contrast
     ),
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,

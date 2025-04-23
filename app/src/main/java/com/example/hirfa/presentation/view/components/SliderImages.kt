@@ -28,75 +28,95 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hirfa.R
 
-
 @Composable
-fun SliderImages(modifier: Modifier = Modifier){
-    Column(modifier = Modifier.fillMaxWidth().wrapContentHeight()){
-        Row (modifier= Modifier.fillMaxWidth() ,
-            verticalAlignment = Alignment.CenterVertically){
-            Text("Services Gallery",
-                modifier = Modifier.padding(start = 10.dp),
-                style = MaterialTheme.typography.titleMedium,
-                fontSize = 20.sp)
-
-            Spacer(modifier = Modifier.width(5.dp))
-
-            IconButton(modifier = Modifier.size(25.dp)
-                .clickable { true }
-                .clip(CircleShape),
-                onClick = {null}
+fun SliderImages(modifier: Modifier = Modifier) {
+        Column(modifier = Modifier.fillMaxWidth().wrapContentHeight()) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Image(painter = painterResource(R.drawable.forward),
-                    contentDescription = null)
+                Text(
+                    "Services Gallery",
+                    modifier = Modifier.padding(start = 10.dp),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontSize = 20.sp,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+
+                Spacer(modifier = Modifier.width(5.dp))
+
+                IconButton(
+                    modifier = Modifier
+                        .size(25.dp)
+                        .clip(CircleShape),
+                    onClick = { }
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.forward),
+                        contentDescription = null
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+
+            LazyRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp)
+                    .padding(2.dp)
+            ) {
+                item {
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                        elevation = CardDefaults.cardElevation(4.dp)
+                    ) {
+                        Image(
+                            modifier = Modifier
+                                .width(250.dp)
+                                .height(150.dp),
+                            painter = painterResource(R.drawable.woodworking),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop
+                        )
+                        Spacer(Modifier.width(12.dp))
+                    }
+                }
+
+                item {
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                        elevation = CardDefaults.cardElevation(4.dp)
+                    ) {
+                        Image(
+                            modifier = Modifier
+                                .width(250.dp)
+                                .height(150.dp),
+                            painter = painterResource(R.drawable.electrical_person),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop
+                        )
+                        Spacer(Modifier.width(12.dp))
+                    }
+                }
+
+                item {
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                        elevation = CardDefaults.cardElevation(4.dp)
+                    ) {
+                        Image(
+                            modifier = Modifier
+                                .width(250.dp)
+                                .height(150.dp),
+                            painter = painterResource(R.drawable.builder_person),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop
+                        )
+                    }
+                }
             }
         }
-        Spacer(modifier = Modifier.height(10.dp))
-        LazyRow(modifier = Modifier.fillMaxWidth()
-            .height(150.dp)
-            .padding(2.dp)) {
-
-            item() {
-                Spacer(modifier= Modifier.width(10.dp))
-                Card(elevation = CardDefaults.cardElevation(4.dp)
-                ) {
-                    Image(modifier = Modifier.width(250.dp)
-                        .height(150.dp),
-                        painter = painterResource(R.drawable.woodworking),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                    )
-                    Spacer(Modifier.width(12.dp))
-                }
-            }
-
-            item() {
-                Spacer(modifier= Modifier.width(10.dp))
-                Card(elevation = CardDefaults.cardElevation(4.dp)
-                ) {
-                    Image(modifier = Modifier.width(250.dp)
-                        .height(150.dp),
-                        painter = painterResource(R.drawable.electrical_person),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                    )
-                    Spacer(Modifier.width(12.dp))
-                }
-            }
-
-            item() {
-                Spacer(modifier= Modifier.width(10.dp))
-                Card(elevation = CardDefaults.cardElevation(4.dp)
-                ) {
-                    Image(modifier = Modifier.width(250.dp)
-                        .height(150.dp),
-                        painter = painterResource(R.drawable.builder_person),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                    )
-                }
-            }
-
-        }
-
-    }
 }

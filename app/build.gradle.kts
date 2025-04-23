@@ -44,7 +44,7 @@ android {
 }
 
 dependencies {
-
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     // ViewModel Kotlin extensions for easier ViewModel usage

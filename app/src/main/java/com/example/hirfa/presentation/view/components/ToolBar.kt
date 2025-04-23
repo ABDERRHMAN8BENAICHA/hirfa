@@ -23,56 +23,54 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hirfa.R
 
-
 @Composable
-fun Toolbar(modifier: Modifier = Modifier){
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Row(modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween ) {
-            Image(
-                painter = painterResource(id = R.drawable.user),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(32.dp)
-                    .clip(CircleShape)
-                    .clickable { true }
-                    .padding(5.dp)
-            )
-            Row(modifier = Modifier.width(70.dp),
-                verticalAlignment = Alignment.CenterVertically) {
-
-
+fun Toolbar(modifier: Modifier = Modifier) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
                 Image(
-                    alignment = Alignment.Center,
-                    painter = painterResource(id = R.drawable.notification),
+                    painter = painterResource(id = R.drawable.user),
                     contentDescription = null,
                     modifier = Modifier
                         .size(32.dp)
                         .clip(CircleShape)
-                        .clickable { true }
+                        .clickable { }
                         .padding(5.dp)
                 )
-                //  Spacer(modifier = Modifier.width(1.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.setting),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(32.dp)
-                        .clip(CircleShape)
-                        .clickable { true }
-                        .padding(5.dp)
-
-                )
-
+                Row(
+                    modifier = Modifier.width(70.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        alignment = Alignment.Center,
+                        painter = painterResource(id = R.drawable.notification),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(32.dp)
+                            .clip(CircleShape)
+                            .clickable { }
+                            .padding(5.dp)
+                    )
+                    Image(
+                        painter = painterResource(id = R.drawable.setting),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(32.dp)
+                            .clip(CircleShape)
+                            .clickable { }
+                            .padding(5.dp)
+                    )
+                }
             }
-
+            Spacer(modifier = Modifier.height(15.dp))
+            Text(
+                "Hirfa Platform",
+                modifier = Modifier.padding(start = 10.dp),
+                style = MaterialTheme.typography.titleMedium,
+                fontSize = 23.sp,
+                color = MaterialTheme.colorScheme.onBackground
+            )
         }
-        Spacer(modifier = Modifier.height(15.dp))
-        Text("Hirfa Platform",
-            modifier = Modifier.padding(start = 10.dp),
-            style = MaterialTheme.typography.titleMedium,
-            fontSize = 23.sp)
     }
-
-
-}

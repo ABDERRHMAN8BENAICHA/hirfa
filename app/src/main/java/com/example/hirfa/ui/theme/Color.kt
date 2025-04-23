@@ -1,23 +1,29 @@
+
 package com.example.hirfa.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val PrimaryBlue = Color(0xFF0B29C6)  // Deep Blue (Primary)
+val SecondaryWhite = Color(0xFFFFFFFF) // Pure White (Secondary)
+val TertiaryBrightBlue = Color(0xFF3051FF) // Bright Blue (Tertiary)
 
-// Light Theme Colors
-val CraftersGold = Color(0xFFFFC107)       // Primary - Vibrant yellow
-val AmberAccent = Color(0xFFFFA000)        // Secondary - Deep orange-yellow
-val ToolboxNavy = Color(0xFF1976D2)        // Tertiary - Contrasting navy blue
+val BackgroundLight = Color(0xFFFFFFFF)  // Pure White Background
+val SurfaceLight = Color(0xFFF0F0F0)     // Soft Gray Surface
+val TextDark = Color(0xFF212121)         // Almost Black for Text
+val TextSecondary = Color(0xFF757575)    // Muted Gray for Secondary Text
 
-// Dark Theme Colors
-val ForgedBronze = Color(0xFFFFA000)       // Dark primary - Rich metallic gold
-val WorkshopAmber = Color(0xFFFF8F00)      // Dark secondary - Warm amber
-val MidnightOil = Color(0xFF0D47A1)        // Dark tertiary - Deep navy
+val ErrorRed = Color(0xFFD32F2F)         // Error Color
+val SuccessGreen = Color(0xFF4CAF50)     // Success Color
 
-// Neutral Colors
-val Parchment = Color(0xFFF5F5F5)          // Light background
-val Graphite = Color(0xFF212121)           // Primary text color
-val SteelGray = Color(0xFF757575)          // Secondary text/icons
+val PrimaryDarkBlue = Color(0xFF0923A3)  // Darker Blue
+val SecondaryDark = Color(0xFF1A1A1A) // Dark Gray for Background
+val TertiaryDarkBlue = Color(0xFF203BBF) // Muted Bright Blue
 
-// Accent Colors
-val SafetyRed = Color(0xFFD32F2F)          // Error/warning color
-val Spotlight = Color(0xFFFFEB3B)          // Highlight color
+val BackgroundDark = Color(0xFF121212)   // True Black Background
+val SurfaceDark = Color(0xFF1E1E1E)      // Dark Gray Surface
+val TextLight = Color(0xFFE0E0E0)        // Soft White Text
+val TextSecondaryDark = Color(0xFFB0BEC5) // Muted Blue-Gray for Secondary Text
+
+val ErrorDarkRed = Color(0xFFB71C1C)    // Darker Error Red
+val WarningYellow = Color(0xFFFFC107)   // Warning Color
+
